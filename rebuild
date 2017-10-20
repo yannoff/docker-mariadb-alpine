@@ -1,0 +1,12 @@
+#!/bin/bash
+
+CONTAINER_PORT=3306
+CONTAINER_NAME=mysql
+IMAGE_TAGNAME=yannoff/mysql:alpine
+
+docker stop $CONTAINER_NAME
+docker rm -f $CONTAINER_NAME
+docker rmi -f $IMAGE_TAGNAME
+docker build -t $IMAGE_TAGNAME .
+
+docker run -itd --name $CONTAINER_NAME -p $CONTAINER_PORT:3306 -v data:/var/lib -e MYSQL_DATABASE=admin -e MYSQL_USER=tony -e MYSQL_PASSWORD=tony -e MYSQL_ROOT_PASSWORD=123 $IMAGE_TAGNAME
