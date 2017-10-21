@@ -18,8 +18,6 @@ MYSQL_DATABASE=${MYSQL_DATABASE:-""}
 MYSQL_USER=${MYSQL_USER:-""}
 MYSQL_PASSWORD=${MYSQL_PASSWORD:-""}
 
-[ ! -d "$MYSQL_RUN_DIR" ] && mkdir -p $MYSQL_RUN_DIR
-
 batch=`mktemp`
 if [ ! -f "$batch" ]
 then
