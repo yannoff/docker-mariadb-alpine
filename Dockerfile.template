@@ -1,0 +1,40 @@
+# vim: ft=Dockerfile
+#
+# @package mariadb/alpine
+# @author  Yannoff <https://github.com/yannoff>
+# @license MIT
+#
+
+FROM alpine:latest
+
+MAINTAINER Yannoff <https://github.com/yannoff>
+
+RUN \
+    apk update; \
+    apk --no-cache add su-exec curl bash; \
+    # TODO Install from source, allowing to target a specific mariadb image
+    # See https://mariadb.com/kb/en/library/installing-mariadb-binary-tarballs/
+    # cd /tmp && mkdir install && cd install
+    #git checkout https://github.com/MariaDB/server/tree/${version}
+    # or
+    #curl https://github.com/MariaDB/server/archive/${version}.zip -O
+    #unzip ${version}.zip && BUILD/autorun.sh && ./configure && make && make install
+    apk --no-cache add mysql; \
+    # TODO Only needed when random password generation is demanded
+    apk --no-cache add pwgen; \
+    # TODO Use version variable to target a specific mariadb image
+    #curl https://raw.githubusercontent.com/docker-library/mariadb/master/${version}/docker-entrypoint.sh -o /docker-entrypoint.sh; \
+    curl https://raw.githubusercontent.com/docker-library/mariadb/master/docker-entrypoint.sh -o /docker-entrypoint.sh; \
+    chmod +x /docker-entrypoint.sh; \
+    # Use su-exec as an alternative to gosu: it's way lighter, and directly available for install from alpine repos
+    ln -s $(which su-exec) /sbin/gosu;
+
+WORKDIR /var/lib/mysql
+VOLUME ["/var/lib/mysql"]
+
+# Create daemon socket dir, as MySQL install doesn't take care of it
+RUN mkdir /run/mysqld && chown mysql:mysql /run/mysqld
+
+EXPOSE 3306
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD [ "mysqld" ]
