@@ -1,6 +1,6 @@
 # yannoff/docker-mariadb-alpine/runtime
 
-*This image is to be used in conjonction with [yannoff/mariadb-light-init](init/README.md) at first run.*
+*This image is to be used in conjonction with [yannoff/mariadb-light-init](../init/README.md) at first run.*
 
 A light-weight [MariaDB server](https://mariadb.org/ "MariaDB Project") [docker](https://www.docker.com/ "docker") image based on [Alpine](https://alpinelinux.org/ "Alpine Linux").
 
