@@ -1,9 +1,10 @@
-# yannoff/docker-mariadb-alpine
+# yannoff/docker-mariadb-alpine/runtime
+
+*This image is to be used in conjonction with [yannoff/mariadb-light-init](init/README.md) at first run.*
 
 A light-weight [MariaDB server](https://mariadb.org/ "MariaDB Project") [docker](https://www.docker.com/ "docker") image based on [Alpine](https://alpinelinux.org/ "Alpine Linux").
 
-## Step-by-step instructions
-
+## Usage
 
 In the above examples, we'll assume the following use-case:
 
@@ -12,18 +13,7 @@ In the above examples, we'll assume the following use-case:
 - Service should be accessible on port `3307` from host machine.
 - Admin password for the mariadb server is `your_root_password`.
 
-### Step one: run init image
-
-```bash
-docker run --rm --name dbinit -e MYSQL_ROOT_PASSWORD=your_root_password -v /path/to/your/data:/var/lib/mysql yannoff/mariadb-light-init
-```
-
-### Step two: remove init image
-```bash
-docker rmi -f yannoff/mariadb-light-init
-```
-
-### Step three: run image (standalone)
+### Usage standalone
 
 From command-line, this image can be run directly using [docker](https://www.docker.com/ "docker").
 
@@ -31,7 +21,7 @@ From command-line, this image can be run directly using [docker](https://www.doc
 docker run --rm --name dbserver -e MYSQL_ROOT_PASSWORD=your_root_password -v /path/to/your/data:/var/lib/mysql -p 3307:3306 yannoff/mariadb-light
 ```
 
-### Step three: run image (in a stack)
+### Usage in a stack
 
 This image is ready for use in a [docker-compose](https://github.com/docker/compose "Docker Compose Project") stack.
 
