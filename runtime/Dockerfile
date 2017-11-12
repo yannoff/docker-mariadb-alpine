@@ -12,7 +12,5 @@ RUN apk add --update mysql && rm -f /var/cache/apk/*
 # Create daemon socket dir, as MySQL install doesn't take care of it
 RUN mkdir /run/mysqld
 
-COPY my.cnf /etc/mysql/my.cnf
-
 EXPOSE 3306
 ENTRYPOINT ["/docker-entrypoint.sh"]
